@@ -1,5 +1,5 @@
 <template>
-    <div class="relative m-10 border border-gray-300 rounded-3xl p-8 cursor-pointer transition hover:-translate-y-2 hover:shadow-xl">
+    <div class="relative bg-gray-custom border border-gray-300 rounded-3xl p-8 cursor-pointer transition hover:-translate-y-2 hover:shadow-xl">
         <img src="/src/assets/icons/heart.svg" alt="Like 1" class=" w-8 absolute top-8 left-8"/>
         <img src="/src/assets/sneakers/sneaker1.png" alt="Sneaker"/>
         

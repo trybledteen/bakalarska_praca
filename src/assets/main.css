@@ -2,4 +2,6 @@
 body{
   background-color: rgb(207 207 207);
 }
-
+@theme {
+  --color-gray-custom : #dad7df ;
+}
