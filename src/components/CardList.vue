@@ -1,5 +1,9 @@
 <script setup>
     import Card from './Card.vue';
+
+    const onClickAdd = () => {
+        alert('Pridať')
+    }
 </script>
 
 <template>
@@ -7,6 +11,10 @@
         <Card 
             title="ADIDAS CAMPUS 00S" 
             imageUrl="/src/assets/sneakers/sneaker1.png" 
-            :price="120"/>
+            :price="120"
+            :isFavorite="false"
+            :onClickAdd="onClickAdd"
+            :isAdded="true"
+            />
     </div>
 </template>
