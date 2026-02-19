@@ -14,8 +14,8 @@ const isDrawerOpen = ref(false)
     <Header :onOpenDrawer="() => (isDrawerOpen = !isDrawerOpen)" />
 
     <div class="p-10">
-      <div class="flex justify-between items-center">
-        <h2 class="text-3xl font-bold mb-8">Všetky tenisky</h2>
+      <div class="flex justify-between items-center mb-10">
+        <h2 class="text-3xl font-bold">Všetky tenisky</h2>
 
         <div class="flex gap-4">
           <select class="py-2 px-3 border rounded-md outline-none focus: border-gray-300">
