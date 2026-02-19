@@ -3,6 +3,7 @@
         title: String,
         imageUrl: String,
         price: Number,
+        gender: String,
         isFavorite: Boolean,
         isAdded: Boolean,
         onClickAdd: Function,
@@ -17,6 +18,7 @@
         <img :src="imageUrl" alt="Sneaker"/>
         
         <p class="mt-2">{{ title }}</p>
+        <span class="text-sm text-gray-500">{{ gender }}</span>
 
         <div class="flex justify-between mt-5">
           <div class="flex flex-col">
