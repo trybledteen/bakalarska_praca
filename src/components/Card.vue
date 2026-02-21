@@ -6,8 +6,6 @@
         price: Number,
         gender: String,
         isFavorite: Boolean,
-        isAdded: Boolean,
-        onClickAdd: Function,
         onClickFavorite: Function
     })
 </script>
@@ -26,8 +24,6 @@
             <span class="text-gray-600">Cena:</span>
             <b>{{ price }} €</b>
           </div>
-
-          <img @click="onClickAdd" :src="!isAdded ? '/src/assets/icons/plus.svg' : '/src/assets/icons/plus1.svg'" alt="Plus" class="w-7"/>
         </div>
       </RouterLink>  
 </template>

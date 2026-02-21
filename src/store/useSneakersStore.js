@@ -1,5 +1,8 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
+
+const savedCart = JSON.parse(localStorage.getItem('cart') || '[]')
+const savedStates = JSON.parse(localStorage.getItem('itemStates') || '{}')
 
 export const useSneakersStore = defineStore('sneakers', () => {
   const items = ref([
@@ -99,49 +102,84 @@ export const useSneakersStore = defineStore('sneakers', () => {
       isFavorite: false,
       isAdded: false,
     },
-  ])
+  ].map(item => ({
+    ...item,
+    isFavorite: savedStates[item.id]?.isFavorite || false,
+    isAdded: savedStates[item.id]?.isAdded || false,
+  })))
 
-  const cart = ref([])
+  const cart = ref(savedCart)
 
   const totalPrice = computed(() =>
-    cart.value.reduce((sum, item) => sum + item.price, 0)
+    cart.value.reduce((sum, item) => sum + item.price * item.quantity, 0)
   )
 
   const cartCount = computed(() => cart.value.length)
 
   function toggleCart(item, size = null) {
-  if (item.isAdded) {
-    cart.value = cart.value.filter((i) => i.id !== item.id)
-    item.isAdded = false
-  } else {
-    cart.value.push({ ...item, size })
-    item.isAdded = true
+    const existing = cart.value.find((i) => i.id === item.id && i.size === size)
+  
+    if (existing) {
+      existing.quantity += 1
+    } else {
+      cart.value.push({ ...item, size, quantity: 1 })
+      item.isAdded = true
+    }
   }
-}
+
+  function updateQuantity(id, size, quantity) {
+    const item = cart.value.find((i) => i.id === id && i.size === size)
+    if (item) {
+      if (quantity <= 0) {
+        removeFromCart(id, size)
+      } else {
+        item.quantity = quantity
+      }
+    }
+  }
 
   function toggleFavorite(item) {
     item.isFavorite = !item.isFavorite
   }
 
-  function removeFromCart(id) {
-    const item = items.value.find((i) => i.id === id)
-    if (item) item.isAdded = false
-    cart.value = cart.value.filter((i) => i.id !== id)
+  function removeFromCart(id, size = null) {
+    cart.value = cart.value.filter((i) => !(i.id === id && i.size === size))
+    const stillInCart = cart.value.some((i) => i.id === id)
+    if (!stillInCart) {
+      const item = items.value.find((i) => i.id === id)
+      if (item) item.isAdded = false
+    }
   }
 
   const searchQuery = ref('')
   const selectedGender = ref('')
 
   const filteredItems = computed(() => {
-  return items.value.filter((item) => {
-    const matchesGender = selectedGender.value ? item.gender === selectedGender.value : true
-    const matchesSearch = item.title.toLowerCase().includes(searchQuery.value.toLowerCase())
-    return matchesGender && matchesSearch
+    return items.value.filter((item) => {
+      const matchesGender = selectedGender.value ? item.gender === selectedGender.value : true
+      const matchesSearch = item.title.toLowerCase().includes(searchQuery.value.toLowerCase())
+      return matchesGender && matchesSearch
+    })
   })
-})
+
   const filteredFavorites = computed(() =>
     items.value.filter((item) => item.isFavorite)
   )
+
+  watch(cart, (newCart) => {
+    localStorage.setItem('cart', JSON.stringify(newCart))
+  }, { deep: true })
+
+  watch(items, (newItems) => {
+    const states = {}
+    newItems.forEach(item => {
+      states[item.id] = {
+        isFavorite: item.isFavorite,
+        isAdded: item.isAdded,
+      }
+    })
+    localStorage.setItem('itemStates', JSON.stringify(states))
+  }, { deep: true })
 
   return {
     items,
@@ -155,5 +193,6 @@ export const useSneakersStore = defineStore('sneakers', () => {
     toggleCart,
     toggleFavorite,
     removeFromCart,
+    updateQuantity,
   }
 })

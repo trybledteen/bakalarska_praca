@@ -13,7 +13,9 @@ defineProps({ onClose: Function })
   <div class="bg-gray-200 w-96 h-full fixed right-0 top-0 z-20 p-8 flex flex-col">
     <DrawerHead :onClose="onClose" />
 
-    <CartItemList />
+    <div class="overflow-y-auto flex-1  pb-4 px-2 custom-scroll">
+      <CartItemList />
+    </div>
 
     <div class="flex flex-col gap-4 mt-7">
       <div class="flex gap-2">

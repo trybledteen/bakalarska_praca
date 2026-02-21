@@ -1,5 +1,4 @@
 <script setup>
-import { RouterLink } from 'vue-router'
 import { useSneakersStore } from '../store/useSneakersStore.js'
 
 const store = useSneakersStore()

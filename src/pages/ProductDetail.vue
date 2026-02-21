@@ -1,17 +1,19 @@
 <script setup>
-import { computed } from 'vue'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useSneakersStore } from '../store/useSneakersStore.js'
 
 const route = useRoute()
-const router = useRouter()
 const store = useSneakersStore()
 const isDbpediaOpen = ref(false)
 const selectedSize = ref('')
 
 const product = computed(() =>
   store.items.find((item) => item.id === Number(route.params.id))
+)
+
+const isCurrentSizeInCart = computed(() =>
+  store.cart.some((i) => i.id === product.value?.id && i.size === selectedSize.value)
 )
 </script>
 
@@ -50,14 +52,14 @@ const product = computed(() =>
         </div>
 
         <div class="flex gap-3">
-          <button
+            <button
             @click="store.toggleCart(product, selectedSize)"
-            :disabled="!selectedSize && !product.isAdded"
-            :class="product.isAdded ? 'bg-zinc-400' : 'bg-yellow-400 hover:bg-yellow-500 disabled:bg-zinc-400 disabled:cursor-not-allowed'"
+            :disabled="!selectedSize"
+            :class="!selectedSize ? 'bg-zinc-400 cursor-not-allowed' : isCurrentSizeInCart ? 'bg-gray-400' : 'bg-yellow-400 hover:bg-yellow-500'"
             class="flex-1 py-3 rounded-xl font-bold text-white transition cursor-pointer"
             >
-            {{ product.isAdded ? ' V košíku' : 'Pridať do košíka ' }}
-        </button>
+               Pridať do košíka
+            </button>
 
           <button
             @click="store.toggleFavorite(product)"

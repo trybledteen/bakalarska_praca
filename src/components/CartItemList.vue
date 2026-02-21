@@ -15,6 +15,8 @@ const store = useSneakersStore()
       :imageUrl="item.imageUrl"
       :price="item.price"
       :size="item.size"
+      :gender="item.gender"
+      :quantity="item.quantity"
     />
 
     <p v-if="store.cart.length === 0" class="text-gray-400 text-center mt-10">

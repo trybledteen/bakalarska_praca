@@ -5,3 +5,15 @@ body{
 @theme {
   --color-gray-custom : #dad7df ;
 }
+.custom-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: #e5e7eb;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: #9ca3af;
+  border-radius: 10px;
+}

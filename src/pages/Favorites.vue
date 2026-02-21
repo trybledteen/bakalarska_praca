@@ -23,8 +23,6 @@ const store = useSneakersStore()
         :price="item.price"
         :gender="item.gender"
         :isFavorite="item.isFavorite"
-        :isAdded="item.isAdded"
-        :onClickAdd="() => store.toggleCart(item)"
         :onClickFavorite="() => store.toggleFavorite(item)"
       />
     </div>
