@@ -17,6 +17,7 @@ const store = useSneakersStore()
       <Card
         v-for="item in store.filteredFavorites"
         :key="item.id"
+        :id="item.id"
         :title="item.title"
         :imageUrl="item.imageUrl"
         :price="item.price"

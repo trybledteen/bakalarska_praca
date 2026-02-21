@@ -8,6 +8,7 @@ defineProps({
   title: String,
   imageUrl: String,
   price: Number,
+  size: String,
 })
 </script>
 
@@ -16,6 +17,7 @@ defineProps({
     <img class="w-18 h-18" :src="imageUrl" alt="Sneaker" />
     <div class="flex flex-col w-full">
       <p>{{ title }}</p>
+      <span v-if="size" class="text-sm text-gray-400">Veľkosť: {{ size }}</span>
       <div class="flex justify-between mt-2">
         <b>{{ price }} €</b>
         <img

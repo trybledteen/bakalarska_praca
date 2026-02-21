@@ -1,5 +1,6 @@
 <script setup>
     defineProps({
+        id: Number,
         title: String,
         imageUrl: String,
         price: Number,
@@ -12,8 +13,8 @@
 </script>
 
 <template>
-    <div class="relative bg-gray-custom border border-gray-300 rounded-3xl p-8 cursor-pointer transition hover:-translate-y-2 hover:shadow-xl">
-        <img @click="onClickFavorite" :src="!isFavorite ? '/src/assets/icons/heart.svg' : '/src/assets/icons/heart1.svg'" alt="Like 1" class=" w-8 absolute top-10 left-10"/>
+    <RouterLink :to="`/product/${id}`" class="relative bg-gray-custom border border-gray-300 rounded-3xl p-8 cursor-pointer transition hover:-translate-y-2 hover:shadow-xl">
+        <img @click.prevent="onClickFavorite" :src="!isFavorite ? '/src/assets/icons/heart.svg' : '/src/assets/icons/heart1.svg'" alt="Like 1" class=" w-8 absolute top-10 left-10"/>
         
         <img :src="imageUrl" alt="Sneaker"/>
         
@@ -28,5 +29,5 @@
 
           <img @click="onClickAdd" :src="!isAdded ? '/src/assets/icons/plus.svg' : '/src/assets/icons/plus1.svg'" alt="Plus" class="w-7"/>
         </div>
-      </div>  
+      </RouterLink>  
 </template>

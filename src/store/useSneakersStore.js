@@ -7,6 +7,7 @@ export const useSneakersStore = defineStore('sneakers', () => {
       id: 1,
       title: 'ADIDAS CAMPUS 00S',
       imageUrl: '/src/assets/sneakers/sneaker1.png',
+      logoUrl: '/src/assets/icons/adidas.svg',
       price: 120,
       gender: 'dámske',
       brand: 'Adidas',
@@ -18,6 +19,7 @@ export const useSneakersStore = defineStore('sneakers', () => {
       id: 2,
       title: 'ADIDAS SUPERSTAR II',
       imageUrl: '/src/assets/sneakers/sneaker2.png',
+      logoUrl: '/src/assets/icons/adidas.svg',
       price: 104,
       gender: 'dámske',
       brand: 'Adidas',
@@ -29,6 +31,7 @@ export const useSneakersStore = defineStore('sneakers', () => {
       id: 3,
       title: 'ASICS GEL-NYC',
       imageUrl: '/src/assets/sneakers/sneaker3.png',
+      logoUrl: '/src/assets/icons/asics.svg',
       price: 150,
       gender: 'dámske',
       brand: 'Asics',
@@ -40,6 +43,7 @@ export const useSneakersStore = defineStore('sneakers', () => {
       id: 4,
       title: 'VANS KNU SKOOL',
       imageUrl: '/src/assets/sneakers/sneaker4.png',
+      logoUrl: '/src/assets/icons/vans.png',
       price: 95,
       gender: 'pánske',
       brand: 'Vans',
@@ -51,6 +55,7 @@ export const useSneakersStore = defineStore('sneakers', () => {
       id: 5,
       title: 'NIKE P-6000 SDE',
       imageUrl: '/src/assets/sneakers/sneaker5.png',
+      logoUrl: '/src/assets/icons/nike.png',
       price: 120,
       gender: 'pánske',
       brand: 'Nike',
@@ -62,6 +67,7 @@ export const useSneakersStore = defineStore('sneakers', () => {
       id: 6,
       title: 'AIR JORDAN 1 LOW',
       imageUrl: '/src/assets/sneakers/sneaker6.png',
+      logoUrl: '/src/assets/icons/jordan.png',
       price: 130,
       gender: 'pánske',
       brand: 'Nike',
@@ -73,6 +79,7 @@ export const useSneakersStore = defineStore('sneakers', () => {
       id: 7,
       title: 'NEW BALANCE 740 V2',
       imageUrl: '/src/assets/sneakers/sneaker7.png',
+      logoUrl: '/src/assets/icons/new_balance.png',
       price: 120,
       gender: 'dámske',
       brand: 'New Balance',
@@ -84,6 +91,7 @@ export const useSneakersStore = defineStore('sneakers', () => {
       id: 8,
       title: 'NIKE DUNK LOW RETRO',
       imageUrl: '/src/assets/sneakers/sneaker8.png',
+      logoUrl: '/src/assets/icons/nike.png',
       price: 120,
       gender: 'pánske',
       brand: 'Nike',
@@ -101,15 +109,15 @@ export const useSneakersStore = defineStore('sneakers', () => {
 
   const cartCount = computed(() => cart.value.length)
 
-  function toggleCart(item) {
-    if (item.isAdded) {
-      cart.value = cart.value.filter((i) => i.id !== item.id)
-      item.isAdded = false
-    } else {
-      cart.value.push(item)
-      item.isAdded = true
-    }
+  function toggleCart(item, size = null) {
+  if (item.isAdded) {
+    cart.value = cart.value.filter((i) => i.id !== item.id)
+    item.isAdded = false
+  } else {
+    cart.value.push({ ...item, size })
+    item.isAdded = true
   }
+}
 
   function toggleFavorite(item) {
     item.isFavorite = !item.isFavorite
