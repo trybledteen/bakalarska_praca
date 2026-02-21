@@ -121,11 +121,25 @@ export const useSneakersStore = defineStore('sneakers', () => {
     cart.value = cart.value.filter((i) => i.id !== id)
   }
 
+  const searchQuery = ref('')
+  const selectedGender = ref('')
+
+  const filteredItems = computed(() => {
+  return items.value.filter((item) => {
+    const matchesGender = selectedGender.value ? item.gender === selectedGender.value : true
+    const matchesSearch = item.title.toLowerCase().includes(searchQuery.value.toLowerCase())
+    return matchesGender && matchesSearch
+  })
+})
+
   return {
     items,
     cart,
     totalPrice,
     cartCount,
+    searchQuery,
+    selectedGender,
+    filteredItems,
     toggleCart,
     toggleFavorite,
     removeFromCart,
