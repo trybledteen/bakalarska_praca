@@ -1,5 +1,5 @@
 <script setup>
-import Card from './Card.vue'
+import Card from '../components/Card.vue'
 import { useSneakersStore } from '../store/useSneakersStore.js'
 
 const store = useSneakersStore()
