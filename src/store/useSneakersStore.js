@@ -131,6 +131,9 @@ export const useSneakersStore = defineStore('sneakers', () => {
     return matchesGender && matchesSearch
   })
 })
+  const filteredFavorites = computed(() =>
+    items.value.filter((item) => item.isFavorite)
+  )
 
   return {
     items,
@@ -140,6 +143,7 @@ export const useSneakersStore = defineStore('sneakers', () => {
     searchQuery,
     selectedGender,
     filteredItems,
+    filteredFavorites,
     toggleCart,
     toggleFavorite,
     removeFromCart,
