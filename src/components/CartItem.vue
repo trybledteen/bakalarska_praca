@@ -28,12 +28,12 @@ defineProps({
     <div class="flex items-center gap-2">
       <button 
         @click="store.updateQuantity(id, size, quantity - 1)"
-        class="w-6 h-6 rounded-full bg-zinc-400 flex items-center justify-center hover:bg-gray-500 cursor-pointer"
+        class="w-6 h-6 rounded-full bg-zinc-custom flex items-center justify-center hover:bg-zinc-custom2 cursor-pointer"
         >-</button>
       <span>{{ quantity }}</span>
       <button 
         @click="store.updateQuantity(id, size, quantity + 1)"
-        class="w-6 h-6 rounded-full bg-zinc-400 flex items-center justify-center hover:bg-gray-500 cursor-pointer"
+        class="w-6 h-6 rounded-full bg-zinc-custom flex items-center justify-center hover:bg-zinc-custom2 cursor-pointer"
       >+</button>
       <img
         class="w-6 opacity-30 hover:opacity-100 cursor-pointer transition ml-2"

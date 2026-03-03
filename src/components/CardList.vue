@@ -6,7 +6,7 @@ const store = useSneakersStore()
 </script>
 
 <template>
-  <div class="grid grid-cols-4 gap-5">
+  <TransitionGroup name="card" tag="div" class="grid grid-cols-4 gap-5 relative">
     <Card
       v-for="item in store.filteredItems"
       :key="item.id"
@@ -18,5 +18,5 @@ const store = useSneakersStore()
       :isFavorite="item.isFavorite"
       :onClickFavorite="() => store.toggleFavorite(item)"
     />
-  </div>
+  </TransitionGroup>
 </template>
