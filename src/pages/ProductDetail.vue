@@ -1,20 +1,36 @@
 <script setup>
-import { computed, ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { useSneakersStore } from '../store/useSneakersStore.js'
+  import { onMounted, ref, computed } from 'vue'
+  import { useRoute, useRouter } from 'vue-router'
+  import { useSneakersStore } from '../store/useSneakersStore.js'
 
-const route = useRoute()
-const store = useSneakersStore()
-const isDbpediaOpen = ref(false)
-const selectedSize = ref('')
+  const route = useRoute()
+  const store = useSneakersStore()
+  const isDbpediaOpen = ref(false)
+  const selectedSize = ref('')
+  const dbpediaData = ref(null)
+  const dbpediaLoading = ref(false)
 
-const product = computed(() =>
-  store.items.find((item) => item.id === Number(route.params.id))
-)
+  const product = computed(() =>
+    store.items.find((item) => item.id === Number(route.params.id))
+  )
 
-const isCurrentSizeInCart = computed(() =>
-  store.cart.some((i) => i.id === product.value?.id && i.size === selectedSize.value)
-)
+  const isCurrentSizeInCart = computed(() =>
+    store.cart.some((i) => i.id === product.value?.id && i.size === selectedSize.value)
+  )
+
+  onMounted(async () => {
+    if (product.value?.dbpediaKey) {
+      dbpediaLoading.value = true
+      try {
+        const response = await fetch(`http://localhost:3000/api/product/${product.value.dbpediaKey}`)
+        dbpediaData.value = await response.json()
+      } catch (error) {
+        console.error('Error fetching DBpedia data:', error)
+      } finally {
+        dbpediaLoading.value = false
+      }
+    }
+  })
 </script>
 
 <template>
@@ -73,20 +89,47 @@ const isCurrentSizeInCart = computed(() =>
         </div>
 
         <div class="bg-gray-custom rounded-2xl mt-2">
-            <button
-                @click="isDbpediaOpen = !isDbpediaOpen"
-                class="w-full flex justify-between items-center p-6 cursor-pointer"
-            >
-                <span class="font-bold">Informácie o produkte (DBpedia)</span>
-                <span class="text-xl text-gray-500 transition-transform duration-300" :class="isDbpediaOpen ? 'rotate-180' : ''">˅</span>
-            </button>
-            <div v-if="isDbpediaOpen" class="px-6 pb-6">
-                <p class="text-gray-400">Pripájanie k DBpedia...</p>
+          <button
+            @click="isDbpediaOpen = !isDbpediaOpen"
+            class="w-full flex justify-between items-center p-6 cursor-pointer"
+          >
+            <span class="font-bold">Informácie o produkte (DBpedia)</span>
+            <span class="text-xl text-gray-500 transition-transform duration-300" :class="isDbpediaOpen ? 'rotate-180' : ''">˅</span>
+          </button>
+
+          <div v-if="isDbpediaOpen" class="px-6 pb-6">
+            <div v-if="dbpediaLoading" class="text-gray-400">Načítava sa...</div>
+              <div v-else-if="dbpediaData">
+                <p v-if="dbpediaData.description" class="text-gray-600 mb-4">{{ dbpediaData.description }}</p>
+
+                <div v-if="dbpediaData.relatedEntities?.length" class="mb-4">
+                  <h4 class="font-bold mb-2">Súvisiace entity:</h4>
+                  <div class="flex flex-wrap gap-2">
+                  <span
+                    v-for="entity in dbpediaData.relatedEntities"
+                    :key="entity"
+                    class="bg-white px-3 py-1 rounded-full text-sm"
+                    >{{ entity }}</span>
+                  </div>
+                </div>
+
+                <div v-if="dbpediaData.categories?.length">
+                  <h4 class="font-bold mb-2">Kategórie:</h4>
+                  <div class="flex flex-wrap gap-2">
+                    <span
+                      v-for="cat in dbpediaData.categories"
+                      :key="cat"
+                      class="bg-white px-3 py-1 rounded-full text-sm"
+                    >{{ cat }}</span>
+                  </div>
+                </div>
+              </div>
+              <div v-else class="text-gray-400">Dáta nie sú dostupné</div>
             </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
   <div v-else class="p-10 text-gray-400">
     Produkt sa nenašiel.
