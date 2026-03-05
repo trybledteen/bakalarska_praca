@@ -16,19 +16,16 @@ app.get('/api/product/:dbpediaKey', async (req, res) => {
 
   const query = `
   PREFIX dbo: <http://dbpedia.org/ontology/>
-  PREFIX dbp: <http://dbpedia.org/property/>
   PREFIX dct: <http://purl.org/dc/terms/>
 
-  SELECT ?description ?abstract ?thumbnail ?manufacturer 
+  SELECT ?description ?abstract
          (GROUP_CONCAT(DISTINCT ?subject; SEPARATOR="||") AS ?subjects)
   WHERE {
     OPTIONAL { <http://dbpedia.org/resource/${decodedKey}> dbo:description ?description . FILTER(LANG(?description) = 'en') }
     OPTIONAL { <http://dbpedia.org/resource/${decodedKey}> dbo:abstract ?abstract . FILTER(LANG(?abstract) = 'en') }
-    OPTIONAL { <http://dbpedia.org/resource/${decodedKey}> dbo:thumbnail ?thumbnail }
-    OPTIONAL { <http://dbpedia.org/resource/${decodedKey}> dbp:manufacturer ?manufacturer . FILTER(LANG(?manufacturer) = 'en') }
     OPTIONAL { <http://dbpedia.org/resource/${decodedKey}> dct:subject ?subject }
   }
-  GROUP BY ?description ?abstract ?thumbnail ?manufacturer
+  GROUP BY ?description ?abstract
 `
 
   try {
@@ -52,8 +49,6 @@ app.get('/api/product/:dbpediaKey', async (req, res) => {
 
     res.json({
       description: bindings.abstract?.value || bindings.description?.value || null,
-      thumbnail: bindings.thumbnail?.value || null,
-      manufacturer: bindings.manufacturer?.value || null,
       categories: subjects,
       dbpediaUrl: `https://dbpedia.org/page/${decodedKey}`,
     })

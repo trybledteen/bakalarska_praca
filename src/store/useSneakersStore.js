@@ -122,8 +122,6 @@ export const useSneakersStore = defineStore('sneakers', () => {
     cart.value.reduce((sum, item) => sum + item.price * item.quantity, 0)
   )
 
-  const cartCount = computed(() => cart.value.length)
-
   function toggleCart(item, size = null) {
     const existing = cart.value.find((i) => i.id === item.id && i.size === size)
   
@@ -193,7 +191,6 @@ export const useSneakersStore = defineStore('sneakers', () => {
     items,
     cart,
     totalPrice,
-    cartCount,
     searchQuery,
     selectedGender,
     filteredItems,
