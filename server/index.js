@@ -12,26 +12,23 @@ const DBPEDIA_ENDPOINT = 'https://dbpedia.org/sparql'
 
 app.get('/api/product/:dbpediaKey', async (req, res) => {
   const { dbpediaKey } = req.params
+  const decodedKey = decodeURIComponent(dbpediaKey)
 
   const query = `
   PREFIX dbo: <http://dbpedia.org/ontology/>
-  PREFIX dbr: <http://dbpedia.org/resource/>
   PREFIX dbp: <http://dbpedia.org/property/>
   PREFIX dct: <http://purl.org/dc/terms/>
-  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
-  SELECT ?description ?thumbnail ?manufacturer 
+  SELECT ?description ?abstract ?thumbnail ?manufacturer 
          (GROUP_CONCAT(DISTINCT ?subject; SEPARATOR="||") AS ?subjects)
-         (GROUP_CONCAT(DISTINCT ?wikiLink; SEPARATOR="||") AS ?wikiLinks)
   WHERE {
-    OPTIONAL { dbr:${dbpediaKey} dbo:description ?description . FILTER(LANG(?description) = 'en') }
-    OPTIONAL { dbr:${dbpediaKey} dbo:thumbnail ?thumbnail }
-    OPTIONAL { dbr:${dbpediaKey} dbp:manufacturer ?manufacturer . FILTER(LANG(?manufacturer) = 'en') }
-    OPTIONAL { dbr:${dbpediaKey} dct:subject ?subject }
-    OPTIONAL { dbr:${dbpediaKey} dbo:wikiPageWikiLink ?wikiLink }
+    OPTIONAL { <http://dbpedia.org/resource/${decodedKey}> dbo:description ?description . FILTER(LANG(?description) = 'en') }
+    OPTIONAL { <http://dbpedia.org/resource/${decodedKey}> dbo:abstract ?abstract . FILTER(LANG(?abstract) = 'en') }
+    OPTIONAL { <http://dbpedia.org/resource/${decodedKey}> dbo:thumbnail ?thumbnail }
+    OPTIONAL { <http://dbpedia.org/resource/${decodedKey}> dbp:manufacturer ?manufacturer . FILTER(LANG(?manufacturer) = 'en') }
+    OPTIONAL { <http://dbpedia.org/resource/${decodedKey}> dct:subject ?subject }
   }
-  GROUP BY ?description ?thumbnail ?manufacturer
-  LIMIT 1
+  GROUP BY ?description ?abstract ?thumbnail ?manufacturer
 `
 
   try {
@@ -40,6 +37,7 @@ app.get('/api/product/:dbpediaKey', async (req, res) => {
         query,
         format: 'application/sparql-results+json',
       },
+      timeout: 10000,
     })
 
     const bindings = response.data.results.bindings[0]
@@ -51,17 +49,13 @@ app.get('/api/product/:dbpediaKey', async (req, res) => {
     const subjects = bindings.subjects?.value
       ? bindings.subjects.value.split('||').map(s => s.replace('http://dbpedia.org/resource/Category:', '').replace(/_/g, ' '))
       : []
-      
-    const wikiLinks = bindings.wikiLinks?.value
-      ? bindings.wikiLinks.value.split('||').slice(0, 5).map(s => s.replace('http://dbpedia.org/resource/', '').replace(/_/g, ' '))
-      : []
 
     res.json({
-      description: bindings.description?.value || null,
+      description: bindings.abstract?.value || bindings.description?.value || null,
       thumbnail: bindings.thumbnail?.value || null,
       manufacturer: bindings.manufacturer?.value || null,
       categories: subjects,
-      relatedEntities: wikiLinks,
+      dbpediaUrl: `https://dbpedia.org/page/${decodedKey}`,
     })
   } catch (error) {
     console.error('DBpedia error:', error.message)
