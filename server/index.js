@@ -59,8 +59,7 @@ function isUri(value) {
 
 function buildDescriptionQuery(brandUri) {
   return `
-    PREFIX dbo:  <http://dbpedia.org/ontology/>
-    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    PREFIX dbo: <http://dbpedia.org/ontology/>
     SELECT ?v WHERE {
       {
         <${brandUri}> dbo:abstract ?v .
@@ -140,7 +139,6 @@ function buildWebsiteQuery(brandUri) {
   `
 }
 
-
 function buildFounderQuery(brandUri) {
   return `
     PREFIX dbp: <http://dbpedia.org/property/>
@@ -151,7 +149,6 @@ function buildFounderQuery(brandUri) {
     LIMIT 3
   `
 }
-
 
 function buildCategoriesQuery(brandUri) {
   return `

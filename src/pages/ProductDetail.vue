@@ -90,7 +90,6 @@
           </button>
         </div>
 
-        <!-- Popis modelu -->
         <div class="bg-gray-custom rounded-2xl">
           <button
             @click="isModelOpen = !isModelOpen"
@@ -104,7 +103,6 @@
           </div>
         </div>
 
-        <!-- Informácie o značke z DBpedia -->
         <div class="bg-gray-custom rounded-2xl">
           <button
             @click="isDbpediaOpen = !isDbpediaOpen"
@@ -123,7 +121,6 @@
                 {{ dbpediaData.description }}
               </p>
 
-              <!-- Rok založenia / Lokalita / Web -->
               <div class="flex flex-col gap-2 text-sm">
                 <div v-if="dbpediaData.foundedYear" class="flex gap-2">
                   <span class="text-gray-500 w-28 shrink-0">Rok založenia:</span>
