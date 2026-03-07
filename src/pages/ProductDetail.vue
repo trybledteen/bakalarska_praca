@@ -23,7 +23,8 @@
     if (product.value?.dbpediaKey) {
       dbpediaLoading.value = true
       try {
-        const response = await fetch(`http://localhost:3000/api/product/${encodeURIComponent(product.value.dbpediaKey)}`)
+        const key = product.value.dbpediaKey.toLowerCase()
+        const response = await fetch(`http://localhost:3001/api/brand/${encodeURIComponent(key)}`)
         dbpediaData.value = await response.json()
       } catch (error) {
         console.error('Error fetching DBpedia data:', error)
@@ -89,6 +90,7 @@
           </button>
         </div>
 
+        <!-- Popis modelu -->
         <div class="bg-gray-custom rounded-2xl">
           <button
             @click="isModelOpen = !isModelOpen"
@@ -102,6 +104,7 @@
           </div>
         </div>
 
+        <!-- Informácie o značke z DBpedia -->
         <div class="bg-gray-custom rounded-2xl">
           <button
             @click="isDbpediaOpen = !isDbpediaOpen"
@@ -111,17 +114,57 @@
             <span class="text-xl text-gray-500 transition-transform duration-300" :class="isDbpediaOpen ? 'rotate-180' : ''">˅</span>
           </button>
           <div v-if="isDbpediaOpen" class="px-6 pb-6">
+
             <div v-if="dbpediaLoading" class="text-gray-400">Načítava sa...</div>
-            <div v-else-if="dbpediaData">
-              <p v-if="dbpediaData.description" class="text-gray-600 mb-4">{{ dbpediaData.description }}</p>
-              <div v-if="dbpediaData.categories?.length" class="mb-4">
-                <h4 class="font-bold mb-2">Kategórie:</h4>
-                <div class="flex flex-wrap gap-2">
-                  <span v-for="cat in dbpediaData.categories" :key="cat" class="bg-white px-3 py-1 rounded-full text-sm">{{ cat }}</span>
+
+            <div v-else-if="dbpediaData && !dbpediaData.error">
+
+              <p v-if="dbpediaData.description" class="text-gray-700 mb-4">
+                {{ dbpediaData.description }}
+              </p>
+
+              <!-- Rok založenia / Lokalita / Web -->
+              <div class="flex flex-col gap-2 text-sm">
+                <div v-if="dbpediaData.foundedYear" class="flex gap-2">
+                  <span class="text-gray-500 w-28 shrink-0">Rok založenia:</span>
+                  <span class="font-medium text-gray-700">{{ dbpediaData.foundedYear }}</span>
+                </div>
+                <div v-if="dbpediaData.location" class="flex gap-2">
+                  <span class="text-gray-500 w-28 shrink-0">Sídlo:</span>
+                  <span class="font-medium text-gray-700">{{ dbpediaData.location }}</span>
+                </div>
+                <div v-if="dbpediaData.founder" class="flex gap-2">
+                  <span class="text-gray-500 w-28 shrink-0">Zakladateľ:</span>
+                  <span class="font-medium text-gray-700">{{ dbpediaData.founder }}</span>
+                </div>
+                <div v-if="dbpediaData.website" class="flex gap-2">
+                  <span class="text-gray-500 w-28 shrink-0">Web:</span>
+                  <a :href="dbpediaData.website" target="_blank" class="text-blue-500 hover:underline break-all">
+                    {{ dbpediaData.website }}
+                  </a>
+                </div>
+
+                <div v-if="dbpediaData.categories && dbpediaData.categories.length">
+                  <p class="text-gray-500 mb-2">Kategórie:</p>
+                  <div class="flex flex-wrap gap-2">
+                    <span
+                      v-for="cat in dbpediaData.categories"
+                      :key="cat"
+                      class="bg-zinc-custom text-gray-700 text-xs px-2 py-1 rounded-lg border border-zinc-custom"
+                    >
+                      {{ cat }}
+                    </span>
+                  </div>
                 </div>
               </div>
-              <a :href="dbpediaData.dbpediaUrl" target="_blank" class="text-blue-500 hover:underline text-sm">Zobraziť na DBpedia →</a>
+
+              <div v-if="dbpediaData.dbpediaUrl" class="mt-4 pt-3 border-t border-stone-400 ">
+                <a :href="dbpediaData.dbpediaUrl" target="_blank" class="text-blue-500 hover:underline text-xs">
+                  Zobraziť na DBpedia →
+                </a>
+              </div>
             </div>
+
             <div v-else class="text-gray-400">Dáta nie sú dostupné</div>
           </div>
         </div>
