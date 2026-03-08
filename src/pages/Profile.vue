@@ -78,10 +78,13 @@ onMounted(() => {
           :key="order.id"
           class="bg-gray-custom rounded-2xl p-6"
         >
-          <div class="flex justify-between items-center mb-4">
-            <span class="text-sm text-gray-500">
-              {{ new Date(order.created_at).toLocaleDateString('sk-SK', { day: '2-digit', month: '2-digit', year: 'numeric' }) }}
-            </span>
+         <div class="flex justify-between items-center mb-4">
+            <div class="flex flex-col gap-1">
+              <span class="font-medium">Objednávka #{{ order.id }}</span>
+              <span class="text-sm text-gray-500">
+                {{ new Date(order.created_at).toLocaleDateString('sk-SK', { day: '2-digit', month: '2-digit', year: 'numeric' }) }}
+              </span>
+            </div>
             <span class="font-bold">{{ order.total_price }} €</span>
           </div>
 

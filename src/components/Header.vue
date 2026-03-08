@@ -1,7 +1,9 @@
 <script setup>
 import { useSneakersStore } from '../store/useSneakersStore.js'
+import { useAuthStore } from '../store/useAuthStore.js'
 
 const store = useSneakersStore()
+const auth  = useAuthStore()
 
 defineProps({
   onOpenDrawer: Function,
@@ -36,7 +38,7 @@ defineProps({
       <li>
         <RouterLink to="/profile" class="flex items-center cursor-pointer gap-2 text-gray-600 hover:text-black">
           <img src="/src/assets/icons/user.svg" alt="profile" class="w-6" />
-          <span class="uppercase">Profil</span>
+          <span class="uppercase">{{ auth.isLoggedIn ? auth.user.name : 'Profil' }}</span>
         </RouterLink>
       </li>
     </ul>
