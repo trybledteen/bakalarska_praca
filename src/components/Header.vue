@@ -31,10 +31,10 @@ defineProps({
         <span class="uppercase">Schránka</span>
       </RouterLink>
 
-      <li class="flex items-center cursor-pointer gap-2 text-gray-600 hover:text-black">
-        <img src="/src/assets/icons/user.svg" alt="cart" class="w-6" />
+      <RouterLink to="/profile" class="flex items-center cursor-pointer gap-2 text-gray-600 hover:text-black">
+        <img src="/src/assets/icons/user.svg" alt="profile" class="w-6" />
         <span class="uppercase">Profil</span>
-      </li>
+      </RouterLink>
     </ul>
   </header>
 </template>
