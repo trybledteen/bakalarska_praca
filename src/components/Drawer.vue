@@ -29,7 +29,8 @@ async function placeOrder() {
   try {
     await auth.placeOrder(store.cart, store.totalPrice)
     success.value = true
-    store.cart.forEach(item => store.removeFromCart(item.id, item.size))
+    const itemsToRemove = [...store.cart]
+    itemsToRemove.forEach(item => store.removeFromCart(item.id, item.size))
   } catch (e) {
     error.value = e.message
   } finally {

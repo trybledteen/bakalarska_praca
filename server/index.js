@@ -4,6 +4,9 @@ import cors from 'cors'
 import mysql from 'mysql2/promise'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const app = express()
 app.use(cors())
@@ -53,8 +56,7 @@ await db.execute(`
 
 console.log('[MySQL] Tables ready')
 
-
-const JWT_SECRET = 'sneaker_eshop_secret_key'
+const JWT_SECRET = process.env.JWT_SECRET
 
 function generateToken(userId) {
   return jwt.sign({ userId }, JWT_SECRET, { expiresIn: '7d' })

@@ -25,16 +25,20 @@ defineProps({
         <img src="/src/assets/icons/shopping-cart.svg" alt="cart" class="w-6" />
         <b class="uppercase">{{ store.totalPrice }} €</b>
       </li>
+      
+      <li>
+        <RouterLink to="/favorites" class="flex items-center cursor-pointer gap-2 text-gray-600 hover:text-black">
+          <img src="/src/assets/icons/heart.svg" alt="cart" class="w-6" />
+          <span class="uppercase">Schránka</span>
+        </RouterLink>
+      </li>
 
-      <RouterLink to="/favorites" class="flex items-center cursor-pointer gap-2 text-gray-600 hover:text-black">
-        <img src="/src/assets/icons/heart.svg" alt="cart" class="w-6" />
-        <span class="uppercase">Schránka</span>
-      </RouterLink>
-
-      <RouterLink to="/profile" class="flex items-center cursor-pointer gap-2 text-gray-600 hover:text-black">
-        <img src="/src/assets/icons/user.svg" alt="profile" class="w-6" />
-        <span class="uppercase">Profil</span>
-      </RouterLink>
+      <li>
+        <RouterLink to="/profile" class="flex items-center cursor-pointer gap-2 text-gray-600 hover:text-black">
+          <img src="/src/assets/icons/user.svg" alt="profile" class="w-6" />
+          <span class="uppercase">Profil</span>
+        </RouterLink>
+      </li>
     </ul>
   </header>
 </template>

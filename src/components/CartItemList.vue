@@ -9,7 +9,7 @@ const store = useSneakersStore()
   <div class="flex flex-col flex-1 gap-4">
     <CartItem
       v-for="item in store.cart"
-      :key="item.id"
+      :key="`${item.id}-${item.size}`"
       :id="item.id"
       :title="item.title"
       :imageUrl="item.imageUrl"
