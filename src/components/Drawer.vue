@@ -14,11 +14,12 @@ const loading = ref(false)
 const success = ref(false)
 const error   = ref('')
 
-defineProps({ onClose: Function })
+const props = defineProps({ onClose: Function })
 
 async function placeOrder() {
   if (!auth.isLoggedIn) {
     router.push('/profile')
+    props.onClose()
     return
   }
 
@@ -34,6 +35,11 @@ async function placeOrder() {
   } finally {
     loading.value = false
   }
+}
+
+function goToProfile() {
+  router.push('/profile')
+  props.onClose()
 }
 </script>
 
@@ -64,7 +70,7 @@ async function placeOrder() {
 
         <p v-if="!auth.isLoggedIn" class="text-gray-500 text-sm text-center">
           Pre objednávku sa prosím
-          <span @click="router.push('/profile')" class="text-yellow-500 cursor-pointer hover:underline">prihláste</span>
+          <span @click="goToProfile" class="text-yellow-500 cursor-pointer hover:underline">prihláste</span>
         </p>
 
         <button

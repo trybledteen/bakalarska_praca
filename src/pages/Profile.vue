@@ -50,7 +50,6 @@ onMounted(() => {
 <template>
   <div class="p-10 px-25">
 
-    <!-- Prihlásený -->
     <div v-if="auth.isLoggedIn">
       <div class="flex items-center justify-between mb-8">
         <div>
@@ -65,7 +64,6 @@ onMounted(() => {
         </button>
       </div>
 
-      <!-- História objednávok -->
       <h3 class="text-xl font-bold mb-4">História objednávok</h3>
 
       <div v-if="loading" class="text-gray-400">Načítava sa...</div>
@@ -101,9 +99,8 @@ onMounted(() => {
       </div>
     </div>
 
-    <!-- Neprihlásený -->
     <div v-else class="max-w-md mx-auto">
-      <h2 class="text-3xl font-bold mb-8">
+      <h2 class="text-3xl font-bold mb-8 text-center">
         {{ isLogin ? 'Prihlásenie' : 'Registrácia' }}
       </h2>
 
