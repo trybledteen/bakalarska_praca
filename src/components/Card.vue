@@ -12,7 +12,7 @@
 
 <template>
     <RouterLink :to="`/product/${id}`" class="relative bg-gray-custom border border-gray-300 rounded-3xl p-8 cursor-pointer transition hover:-translate-y-2 hover:shadow-xl">
-        <img @click.prevent="onClickFavorite" :src="!isFavorite ? '/src/assets/icons/heart.svg' : '/src/assets/icons/heart1.svg'" alt="Like 1" class=" w-8 absolute top-10 left-10"/>
+        <img @click.prevent="onClickFavorite" :src="!isFavorite ? '/src/assets/icons/heart.svg' : '/src/assets/icons/heart1.svg'" alt="Like 1" class="w-8 absolute top-10 left-10"/>
         
         <img :src="imageUrl" alt="Sneaker"/>
         

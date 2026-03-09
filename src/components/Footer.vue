@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <footer class="border-t border-gray-300 px-10 py-6 mt-4 text-sm text-gray-500">
+  <footer class="border-t border-gray-300 px-10 py-6 mt-4 text-xs text-gray-500">
     <div class="flex flex-col gap-2">
       <p>© 2026 Stepway — Bakalárska práca</p>
       <p>
