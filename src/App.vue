@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import Header from './components/Header.vue'
 import Drawer from './components/Drawer.vue'
+import Footer from './components/Footer.vue'
 
 const isDrawerOpen = ref(false)
 </script>
@@ -11,5 +12,6 @@ const isDrawerOpen = ref(false)
   <div class="bg-gray-200 w-4/5 m-auto rounded-3xl shadow-xl mt-14">
     <Header :onOpenDrawer="() => (isDrawerOpen = !isDrawerOpen)" />
     <RouterView />
+     <Footer />
   </div>
 </template>

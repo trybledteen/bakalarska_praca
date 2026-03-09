@@ -72,7 +72,7 @@
         <div class="flex gap-3">
           <button
             @click="store.toggleCart(product, selectedSize)"
-            :disabled="!selectedSize"
+            :disabled="!selectedSize || isCurrentSizeInCart"
             :class="!selectedSize ? 'bg-zinc-400 cursor-not-allowed' : isCurrentSizeInCart ? 'bg-gray-400' : 'bg-yellow-400 hover:bg-yellow-500'"
             class="flex-1 py-3 rounded-xl font-bold text-white transition cursor-pointer"
           >
