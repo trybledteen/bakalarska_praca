@@ -12,8 +12,26 @@ const error     = ref('')
 const orders    = ref([])
 const loading   = ref(false)
 
+function validate() {
+  if (!isLogin.value && name.value.trim().length < 2) {
+    error.value = 'Meno musí mať aspoň 2 znaky'
+    return false
+  }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailRegex.test(email.value)) {
+    error.value = 'Zadajte platný email'
+    return false
+  }
+  if (password.value.length < 6) {
+    error.value = 'Heslo musí mať aspoň 6 znakov'
+    return false
+  }
+  return true
+}
+
 async function submit() {
   error.value = ''
+  if (!validate()) return
   try {
     if (isLogin.value) {
       await auth.login(email.value, password.value)
