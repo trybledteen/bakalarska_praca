@@ -1,44 +1,95 @@
-# bakalarska_praca
+# Stepway — Webová aplikácia
 
-This template should help get you started developing with Vue 3 in Vite.
+Bakalárska práca
 
-## Recommended IDE Setup
+**Autor:** Oliynyk Viktoriia
+**Univerzita:** Univerzita Konštantína Filozofa v Nitre
+**Fakulta:** Fakulta prírodných vied a informatiky
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+---
 
-## Recommended Browser Setup
+## O projekte
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+Stepway je webová aplikácia elektronického obchodu so športovou obuvou. Aplikácia umožňuje prezeranie produktov, filtrovanie podľa pohlavia, vyhľadávanie, správu košíka, pridávanie do obľúbených a zobrazenie informácií o značkách z databázy DBpedia. Používatelia sa môžu registrovať, prihlásiť a sledovať históriu svojich objednávok.
 
-## Customize configuration
+## Technológie
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+**Frontend:** Vue 3, Vite, Pinia, Vue Router, Tailwind CSS
 
-## Project Setup
+**Backend:** Node.js, Express, MySQL, JWT, bcrypt
+
+**Externé dáta:** DBpedia (SPARQL)
+
+---
+
+## Požiadavky
+
+- Node.js v18+
+- MySQL / XAMPP
+
+---
+
+## Inštalácia a spustenie
+
+### 1. Klonovanie repozitára
+
+```sh
+git clone https://github.com/your-username/bakalarska_praca.git
+cd bakalarska_praca
+```
+
+### 2. Inštalácia závislostí frontendu
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### 3. Inštalácia závislostí backendu
+
+```sh
+cd server
+npm install
+```
+
+### 4. Nastavenie databázy
+
+Spustite XAMPP a zapnite službu **MySQL**.
+
+Vytvorte databázu:
+```sql
+CREATE DATABASE sneaker_eshop;
+```
+
+### 5. Nastavenie premenných prostredia
+
+V priečinku `server/` vytvorte súbor `.env`:
+
+```
+JWT_SECRET=sneaker_eshop_secret_key
+DB_PASSWORD=
+```
+
+### 6. Spustenie backendu
+
+```sh
+cd server
+node index.js
+```
+
+Backend beží na `http://localhost:3001`
+
+### 7. Spustenie frontendu
 
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+Frontend beží na `http://localhost:5173`
 
-```sh
-npm run build
-```
+---
 
-### Lint with [ESLint](https://eslint.org/)
 
-```sh
-npm run lint
-```
+## Zdroje
+
+- Obrázky produktov: [sizeer.sk](https://sizeer.sk)
+- Bannery: [Designed by BiZkettE1 / Freepik](http://www.freepik.com)
