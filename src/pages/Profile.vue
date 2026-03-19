@@ -76,7 +76,7 @@ onMounted(() => {
         </div>
         <button
           @click="logout"
-          class="bg-gray-custom px-5 py-2 rounded-xl text-sm font-medium hover:bg-gray-200 transition cursor-pointer"
+          class="bg-gray-custom px-5 py-2 rounded-xl text-sm font-medium hover:bg-gray-400 transition cursor-pointer"
         >
           Odhlásiť sa
         </button>
