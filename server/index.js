@@ -14,10 +14,10 @@ app.use(express.json())
 
 
 const db = await mysql.createPool({
-  host:     'localhost',
-  user:     'root',
-  password: '',
-  database: 'sneaker_eshop',
+  host:     process.env.DB_HOST || 'localhost',
+  user:     process.env.DB_USER || 'root',
+  password: process.env.DB_PASSWORD || '',
+  database: process.env.DB_NAME || 'sneaker_eshop',
   waitForConnections: true,
 })
 
