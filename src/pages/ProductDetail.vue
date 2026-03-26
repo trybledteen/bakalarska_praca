@@ -84,7 +84,7 @@
             class="bg-gray-custom rounded-xl px-4 cursor-pointer border border-gray-300"
           >
             <img
-              :src="product.isFavorite ? '/icons/heart1.svg' : '/src/assets/icons/heart.svg'"
+              :src="product.isFavorite ? '/icons/heart1.svg' : '/icons/heart.svg'"
               class="w-6"
             />
           </button>
