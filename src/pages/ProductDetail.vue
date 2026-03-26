@@ -24,7 +24,7 @@
       dbpediaLoading.value = true
       try {
         const key = product.value.dbpediaKey.toLowerCase()
-        const response = await fetch(`http://localhost:3001/api/brand/${encodeURIComponent(key)}`)
+        const response = await fetch(`https://hospitable-spontaneity-production.up.railway.app/api/brand/${encodeURIComponent(key)}`)
         dbpediaData.value = await response.json()
       } catch (error) {
         console.error('Error fetching DBpedia data:', error)

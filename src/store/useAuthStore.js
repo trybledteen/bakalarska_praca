@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 
+const API_URL = 'https://hospitable-spontaneity-production.up.railway.app'
+
 export const useAuthStore = defineStore('auth', () => {
   const token = ref(localStorage.getItem('token') || null)
   const user  = ref(JSON.parse(localStorage.getItem('user') || 'null'))
@@ -22,7 +24,7 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   async function register(name, email, password) {
-    const res = await fetch('http://localhost:3001/api/auth/register', {
+    const res = await fetch(`${API_URL}/api/auth/register`, {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body:    JSON.stringify({ name, email, password }),
@@ -33,7 +35,7 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   async function login(email, password) {
-    const res = await fetch('http://localhost:3001/api/auth/login', {
+    const res = await fetch(`${API_URL}/api/auth/login`, {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body:    JSON.stringify({ email, password }),
@@ -44,7 +46,7 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   async function placeOrder(items, totalPrice) {
-    const res = await fetch('http://localhost:3001/api/orders', {
+    const res = await fetch(`${API_URL}/api/orders`, {
       method:  'POST',
       headers: {
         'Content-Type':  'application/json',
@@ -58,7 +60,7 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   async function fetchOrders() {
-    const res = await fetch('http://localhost:3001/api/orders', {
+    const res = await fetch(`${API_URL}/api/orders`, {
       headers: { 'Authorization': `Bearer ${token.value}` },
     })
     const data = await res.json()
