@@ -21,7 +21,7 @@ const store = useSneakersStore()
           </select>
 
           <div class="relative">
-            <img class="absolute left-4 top-3 w-4" src="../assets/icons/search.svg" />
+            <img class="absolute left-4 top-3 w-4" src="/icons/search.svg" />
             <input
               v-model="store.searchQuery"
               class="border rounded-md py-2 pl-11 pr-4 outline-none focus: border-gray-300"

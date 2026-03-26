@@ -37,7 +37,7 @@ defineProps({
           >+</button>
           <img
             class="w-6 opacity-30 hover:opacity-100 cursor-pointer transition ml-2"
-            src="/src/assets/icons/cross.svg"
+            src="/icons/cross.svg"
             @click="store.removeFromCart(id, size)"
           />
         </div>

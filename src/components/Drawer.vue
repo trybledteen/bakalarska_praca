@@ -50,7 +50,7 @@ function goToProfile() {
     <DrawerHead :onClose="onClose" />
 
     <div v-if="success" class="flex flex-col items-center justify-center flex-1 gap-4 text-center">
-      <img src="/src/assets/icons/order-success.svg" alt="success" class="w-20" />
+      <img src="/icons/order-success.svg" alt="success" class="w-20" />
       <h3 class="text-xl font-bold">Objednávka bola prijatá!</h3>
       <p class="text-gray-500 text-sm">Ďakujeme za nákup. Históriu objednávok nájdete v profile.</p>
     </div>

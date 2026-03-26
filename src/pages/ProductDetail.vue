@@ -66,7 +66,7 @@
             <option>43</option>
             <option>44</option>
           </select>
-          <img class="absolute right-4 top-3 w-4 pointer-events-none" src="/src/assets/icons/arrow-down.svg" />
+          <img class="absolute right-4 top-3 w-4 pointer-events-none" src="/icons/arrow-down.svg" />
         </div>
 
         <div class="flex gap-3">
@@ -84,7 +84,7 @@
             class="bg-gray-custom rounded-xl px-4 cursor-pointer border border-gray-300"
           >
             <img
-              :src="product.isFavorite ? '/src/assets/icons/heart1.svg' : '/src/assets/icons/heart.svg'"
+              :src="product.isFavorite ? '/icons/heart1.svg' : '/src/assets/icons/heart.svg'"
               class="w-6"
             />
           </button>

@@ -20,7 +20,7 @@ const store = useSneakersStore()
     />
 
     <div v-if="store.cart.length === 0" class="flex flex-col items-center mt-40 gap-5">
-      <img src="/src/assets/icons/emoji.png" class="w-25 opacity-85" />
+      <img src="/icons/emoji.png" class="w-25 opacity-85" />
       <p class="text-gray-400">Košík je prázdny</p>
     </div>
   </div>

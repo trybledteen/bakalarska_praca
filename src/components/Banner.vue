@@ -2,9 +2,9 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 
 const banners = [
-  '/src/assets/banners/banner1.jpg',
-  '/src/assets/banners/banner2.jpg',
-  '/src/assets/banners/banner3.jpg',
+  '/banners/banner1.jpg',
+  '/banners/banner2.jpg',
+  '/banners/banner3.jpg',
 ]
 
 const current = ref(0)
